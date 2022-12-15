@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
-{% block content%}
+{% block content %}
 
 <form action="/login" method="post">
     {{ form.hidden_tag() }}
     <p>{{ form.email(autocomplete="off", placeholder="Email") }}</p>
+    <div style="color: red;">{% if form.email.errors %}{{ form.email.errors[0] }}{% endif %}</div>
     <p>{{ form.password(placeholder="Password", required=False) }}</p>
+    <div style="color: red;">{% if form.password.errors %}{{ form.password.errors[0] }}{% endif %}</div>
     {{ form.submit() }}
+    {% for message in get_flashed_messages() %}
+        <div style="color: red;">{{ message }}</div>
+    {% endfor %}
 </form>
 
 {% endblock %}

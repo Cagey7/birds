@@ -8,7 +8,7 @@ from config import config
 bootstrap = Bootstrap5()
 db = SQLAlchemy()
 from .models import *
-ses = Session()
+session = Session()
 
 
 def create_app(config_name):
@@ -20,7 +20,7 @@ def create_app(config_name):
 
     bootstrap.init_app(app)
     db.init_app(app)
-    ses.init_app(app)
+    session.init_app(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

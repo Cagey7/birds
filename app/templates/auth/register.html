@@ -4,9 +4,16 @@
 <form action="/register" method="post">
     {{ form.hidden_tag() }}
     <p>{{ form.email(autocomplete="off", placeholder="Email") }}</p>
-    <p>{{ form.username(autocomplete="off", placeholder="Username") }}</p>
+    <div style="color: red;">{% if form.email.errors %}{{ form.email.errors[0] }}{% endif %}</div>
+    <div>{{ form.username(autocomplete="off", placeholder="Username") }}</p>
+    <div style="color: red;">{% if form.username.errors %}{{ form.username.errors[0] }}{% endif %}</div>
     <p>{{ form.password(placeholder="Password") }}</p>
+    <div style="color: red;">{% if form.password.errors %}{{ form.password.errors[0] }}{% endif %}</div>
     <p>{{ form.confirm_password(placeholder="Confirm password") }}</p>
+    <div style="color: red;">{% if form.confirm_password.errors %}{{ form.confirm_password.errors[0] }}{% endif %}</div>
     <p>{{ form.submit() }}</p>
+    {% for message in get_flashed_messages() %}
+        <div style="color: red;">{{ message }}</div>
+    {% endfor %}
 </form>
 {% endblock %}

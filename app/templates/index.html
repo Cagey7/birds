@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Content</h2>
+
+    {% if session["email"] %}
+        <h1>Hello, {{ session["email"] }}</h1>
+    {% else %}
+        <h1>Hello, stranger </h1>
+    {% endif %}
+
 {% endblock %}

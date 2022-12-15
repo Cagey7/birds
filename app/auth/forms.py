@@ -34,4 +34,4 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, field):
         """ Checks if username is already taken """
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError("Username already in use.")
+            raise ValidationError("Username already in used.")
