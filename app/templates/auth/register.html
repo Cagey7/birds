@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Registration</h2>
+<form action="/register" method="post">
+    {{ form.hidden_tag() }}
+    <p>{{ form.email(autocomplete="off", placeholder="Email") }}</p>
+    <p>{{ form.username(autocomplete="off", placeholder="Username") }}</p>
+    <p>{{ form.password(placeholder="Password") }}</p>
+    <p>{{ form.confirm_password(placeholder="Confirm password") }}</p>
+    <p>{{ form.submit() }}</p>
+</form>
 {% endblock %}

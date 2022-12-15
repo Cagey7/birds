@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
 {% block content%}
-<h2>Login</h2>
+
+<form action="/login" method="post">
+    {{ form.hidden_tag() }}
+    <p>{{ form.email(autocomplete="off", placeholder="Email") }}</p>
+    <p>{{ form.password(placeholder="Password", required=False) }}</p>
+    {{ form.submit() }}
+</form>
+
 {% endblock %}
