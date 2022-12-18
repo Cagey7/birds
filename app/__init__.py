@@ -7,7 +7,6 @@ from config import config
 
 bootstrap = Bootstrap5()
 db = SQLAlchemy()
-from .models import *
 session = Session()
 
 
