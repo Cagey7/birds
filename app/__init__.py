@@ -2,15 +2,17 @@ from flask import Flask
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
+from flask_migrate import Migrate
 from config import config
 
 
 bootstrap = Bootstrap5()
 db = SQLAlchemy()
 session = Session()
+migrate = Migrate()
 
 
-def create_app(config_name):
+def create_app(config_name="development"):
     """Creates a new Flask app using the Factory Pattern"""
 
     app = Flask(__name__)
@@ -20,6 +22,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
     session.init_app(app)
+    migrate.init_app(app, db)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
