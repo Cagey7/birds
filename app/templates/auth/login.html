@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <form action="/login" method="post">
     {{ form.hidden_tag() }}
     <p>{{ form.email(autocomplete="off", placeholder="Email") }}</p>
@@ -13,5 +12,4 @@
         <div style="color: red;">{{ message }}</div>
     {% endfor %}
 </form>
-
 {% endblock %}

@@ -14,7 +14,6 @@ migrate = Migrate()
 
 def create_app(config_name="development"):
     """Creates a new Flask app using the Factory Pattern"""
-
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)

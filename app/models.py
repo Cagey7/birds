@@ -3,8 +3,7 @@ from . import db
 
 
 class User(db.Model):
-    """ Sqlalchemy user class """
-    
+    """Sqlalchemy user class"""
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, nullable=False)
@@ -12,7 +11,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(500), nullable=False)
     vote = db.relationship("Vote", backref="user", uselist=False)
 
-    
+
     @property
     def password(self):
         raise AttributeError("password is not a readable attribute")
@@ -29,8 +28,7 @@ class User(db.Model):
 
 
 class Bird(db.Model):
-    """ Sqlalchemy bird class """
-
+    """Sqlalchemy bird class"""
     __tablename__ = "birds"
     id = db.Column(db.Integer, primary_key=True)
     species = db.Column(db.String(64), unique=True, nullable=False)
@@ -40,8 +38,7 @@ class Bird(db.Model):
 
 
 class Vote(db.Model):
-    """ Sqlalchemy vote class """
-
+    """Sqlalchemy vote class"""
     __tablename__ = "votes"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
