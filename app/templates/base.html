@@ -22,9 +22,15 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="navbar-nav mr-auto">
-                {{ render_nav_item('main.index', 'Home') }}
-                {{ render_nav_item('auth.login', 'Login') }}
-                {{ render_nav_item('auth.register', 'Registration') }}
+                {% if session["username"] %}
+                    {{ render_nav_item('main.index', 'Home') }}
+                    {{ render_nav_item('main.profile', 'My profile', username=session["username"]) }}
+                    {{ render_nav_item('auth.logout', 'Logout') }}
+                {% else %}
+                    {{ render_nav_item('main.index', 'Home') }}
+                    {{ render_nav_item('auth.login', 'Login') }}
+                    {{ render_nav_item('auth.register', 'Registration') }}
+                {% endif %}
             </div>
         </nav>
         {% endblock %}

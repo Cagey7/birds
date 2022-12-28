@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if session["email"] %}
-        <h1>Hello, {{ session["email"] }}</h1>
+    {% if session["username"] %}
+        <h1>Hello, {{ session["username"] }}</h1>
     {% else %}
         <h1>Hello, stranger </h1>
     {% endif %}

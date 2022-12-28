@@ -10,7 +10,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data.lower()).first()
         if user is not None and user.verify_password(form.password.data):
-            session["email"] = form.email.data
+            session["username"] = User.query.filter_by(email=form.email.data).first().username
             return redirect(url_for("main.index"))
         flash("Wrong email or password", "error")
         return redirect(url_for("auth.login"))
@@ -28,3 +28,9 @@ def register():
         db.session.commit()
         return redirect(url_for("auth.login"))
     return render_template("auth/register.html", form=form)
+
+
+@auth.route("/logout")
+def logout():
+    session["username"] = None
+    return redirect(url_for("main.index"))
