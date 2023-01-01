@@ -3,6 +3,7 @@ from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 from flask_migrate import Migrate
+from flask_mail import Mail
 from config import config
 
 
@@ -10,6 +11,7 @@ bootstrap = Bootstrap5()
 db = SQLAlchemy()
 session = Session()
 migrate = Migrate()
+mail = Mail()
 
 
 def create_app(config_name="development"):
@@ -22,6 +24,7 @@ def create_app(config_name="development"):
     db.init_app(app)
     session.init_app(app)
     migrate.init_app(app, db)
+    mail.init_app(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
