@@ -11,13 +11,19 @@
         {% if not voted_bird %}
             <form action="/vote" method="post">
                 {% for bird in birds %}
-                <p>-------------------------------------</p>
-                <img src="/static/birds_images/{{ bird.image_path }}" style="height:250px;">
-                <p>{{ bird.species }}</p>
-                <input name="vote" type="radio" value="{{ bird.id }}">
-                <p>-------------------------------------</p>
+                <div class="card" style="width: 18rem;">
+                    <img src="/static/birds_images/{{ bird.image_path }}" class="card-img-top">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="vote" id="flexRadioDefault1" value="{{ bird.id }}">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                <h5 class="card-title">{{ bird.species }}</h5>
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
-                <button type="submit">Vote</button>
+                <button type="submit" class="btn btn-secondary">Vote</button>
             </form>
         {% else %}
             <h1>You already voted</h1>
@@ -26,10 +32,12 @@
     {% else %}
         <h2>Login to vote</h2>
         {% for bird in birds %}
-        <p>-------------------------------------</p>
-        <img src="/static/birds_images/{{ bird.image_path }}" style="height:250px;">
-        <p>{{ bird.species }}</p>
-        <p>-------------------------------------</p>
+        <div class="card" style="width: 18rem;">
+            <img src="/static/birds_images/{{ bird.image_path }}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{ bird.species }}</h5>
+            </div>
+        </div>
         {% endfor %}
     {% endif %}
 {% endblock %}

@@ -20,7 +20,7 @@
         {% block navbar %}
         {% from 'bootstrap5/nav.html' import render_nav_item %}
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
             <div class="navbar-nav mr-auto">
                 {% if session["username"] %}
                     {{ render_nav_item('main.index', 'Home') }}
