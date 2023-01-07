@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if session["username"] %}
+    {% if session["username"] and not voted_bird%}
         <div class="container-sm" style="text-align: center;">
-            <h1>Make disition about the best bird on our planet</h1>
+            <h2>Make disition about the best bird on our planet</h2>
         </div>
+    {% elif session["username"] and voted_bird %}
     {% else %}
         <div class="container-sm" style="text-align: center;">
-            <h1>Hello, birds fan</h1>
-            <h2>Login to vote for the best bird on our planet</h2>
+            <h2>Hello, bird's fan</h2>
+            <h3>Login to vote for the best bird on our planet</h3>
         </div>
     {% endif %}
 
@@ -33,8 +34,17 @@
                 <div class="container-sm"><button type="submit" class="btn btn-secondary" style="float: right; width: 150px; height: 50px;">Vote</button></div>
             </form>
         {% else %}
-            <h1>You already voted</h1>
-            <h2>You voted for {{ voted_bird.species }}</h2>
+            <h2 style="text-align: center;">Thank you for your vote!</h2>
+            <div class="container-sm" style="overflow: auto; width: 100%;">
+                {% for bird in birds %}
+                    <div class="card" style="width: 18rem; float: left; margin: 2em;">
+                        <img src="/static/birds_images/{{ bird.image_path }}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ bird.species }}</h5>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
     {% else %}
         <div class="container-sm" style="overflow: auto; width: 100%;">

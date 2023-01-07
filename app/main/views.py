@@ -1,4 +1,4 @@
-from flask import render_template, session, abort, request
+from flask import render_template, session, abort, request, redirect, url_for
 from . import main
 from app.models import *
 
@@ -18,9 +18,15 @@ def index():
 
 @main.route("/profile/<username>")
 def profile(username):
+    voted_bird = None
+    user_id = User.query.filter_by(username=session["username"]).first().id
+    bird = Vote.query.filter_by(user_id=user_id).first()
+    if bird:
+        bird_id = bird.bird_id
+        voted_bird = Bird.query.filter_by(id=bird_id).first()
     if not username == session["username"]:
         abort(404)
-    return render_template("profile.html")
+    return render_template("profile.html", voted_bird=voted_bird)
 
 
 @main.route("/vote", methods=["GET", "POST"])
@@ -31,4 +37,4 @@ def vote():
         vote = Vote(user_id=user_id, bird_id=bird_id)
         db.session.add(vote)
         db.session.commit()
-    return render_template("success.html")
+    return redirect(url_for("main.index"))
