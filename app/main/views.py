@@ -4,7 +4,6 @@ from app.models import *
 
 @main.route("/", methods=["GET", "POST"])
 def index():
-    session["username"] = None
     birds = None
     voted_bird = None
     try:
