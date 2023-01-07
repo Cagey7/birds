@@ -6,12 +6,13 @@ from app.models import *
 def index():
     birds = None
     voted_bird = None
-    if session["username"]:
+    try:
         user_id = User.query.filter_by(username=session["username"]).first().id
-        bird = Vote.query.filter_by(user_id=user_id).first()
-        if bird:
-            bird_id = bird.bird_id
-            voted_bird = Bird.query.filter_by(id=bird_id).first()
+        user_id = User.query.filter_by(username=session["username"]).first().id
+        bird_id = Vote.query.filter_by(user_id=user_id).first().bird_id
+        voted_bird = Bird.query.filter_by(id=bird_id).first()
+    except Exception:
+        pass
     birds = Bird.query.all()
     return render_template("index.html", birds=birds, voted_bird=voted_bird)
 
