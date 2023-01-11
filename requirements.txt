@@ -8,3 +8,4 @@ Flask-Migrate==4.0.0
 python-dotenv==0.21.0
 flask-mail==0.9.1
 flask-login==0.6.2
+itsdangerous==2.0.1
