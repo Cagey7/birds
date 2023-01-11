@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if session["username"] and not voted_bird%}
+    {% if current_user.username and not voted_bird %}
         <div class="container-sm" style="text-align: center;">
             <h2>Make disition about the best bird on our planet</h2>
         </div>
-    {% elif session["username"] and voted_bird %}
+    {% elif current_user.username and voted_bird %}
     {% else %}
         <div class="container-sm" style="text-align: center;">
             <h2>Hello, bird's fan</h2>
@@ -13,7 +13,7 @@
         </div>
     {% endif %}
 
-    {% if session["username"] %}
+    {% if current_user.username %}
         {% if not voted_bird %}
             <form action="/vote" method="post">
                 <div class="container-sm" style="overflow: auto; width: 100%;">

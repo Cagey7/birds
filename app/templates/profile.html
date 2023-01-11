@@ -3,7 +3,7 @@
 {% block content %}
 {% if voted_bird %}
     <div class="container-md">
-        <h2  style="text-align: center;">Thank you for your vote, {{ session["username"] }}</h2>
+        <h2  style="text-align: center;">Thank you for your vote, {{ current_user.username }}</h2>
         <div class="card" style="width: 30rem; margin: auto;">
             <img src="/static/birds_images/{{ voted_bird.image_path }}" class="card-img-top ">
             <div class="card-body">
@@ -13,7 +13,7 @@
         </div>
     </div>
 {% else %}
-    <h2 style="text-align: center;">Hello, {{ session["username"] }}</h2>
+    <h2 style="text-align: center;">Hello, {{ current_user.username }}</h2>
     <h3 style="text-align: center;">Go to the main page to vote for the best bird</h3>
 {% endif %}
 {% endblock %}

@@ -1,4 +1,5 @@
-from flask import render_template, redirect, url_for, flash, session
+from flask import render_template, redirect, url_for, flash, session, request
+from flask_login import login_user, logout_user
 from .forms import *
 from . import auth
 from .. import db
@@ -10,8 +11,8 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data.lower()).first()
         if user is not None and user.verify_password(form.password.data):
-            session["username"] = User.query.filter_by(email=form.email.data).first().username
-            return redirect(url_for("main.index"))
+            login_user(user, True)
+            return redirect(request.args.get("next") or url_for("main.index"))
         flash("Wrong email or password", "error")
         return redirect(url_for("auth.login"))
     return render_template("auth/login.html", form=form)
@@ -32,5 +33,5 @@ def register():
 
 @auth.route("/logout")
 def logout():
-    session["username"] = None
+    logout_user()
     return redirect(url_for("main.index"))

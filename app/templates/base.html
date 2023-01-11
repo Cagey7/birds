@@ -22,9 +22,9 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
             <div class="navbar-nav mr-auto">
-                {% if session["username"] %}
+                {% if current_user.is_authenticated %}
                     {{ render_nav_item('main.index', 'Home') }}
-                    {{ render_nav_item('main.profile', 'My profile', username=session["username"]) }}
+                    {{ render_nav_item('main.profile', 'My profile', username=current_user.username) }}
                     {{ render_nav_item('auth.logout', 'Logout') }}
                 {% else %}
                     {{ render_nav_item('main.index', 'Home') }}
