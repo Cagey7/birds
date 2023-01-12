@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for, flash, session, request
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
+from ..email import send_email
 from .forms import *
 from . import auth
 from .. import db
@@ -37,22 +38,33 @@ def logout():
     return redirect(url_for("main.index"))
 
 
-@auth.route("/reset", methods=["GET", "POST"])
-def reser():
+@auth.route("/reset/<token>", methods=["GET", "POST"])
+def password_reset(token):
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        email = "admin@gmail.com"
-        user = User.query.filter_by(email=email).first()
-        token = user.generate_reset_token()
-        User.reset_password(token, form.password.data)
-        
-    return render_template("auth/reset.html", form=form)
+        if User.reset_password(token, form.password.data):
+            flash("Your password has been updated")
+            return redirect(url_for("auth.login"))
+        else:
+            print("tesetet")
+            flash("Probably your token is too old")
+            return redirect(url_for("auth.login"))
+    return render_template("auth/reset.html", form=form, token=token)
 
 
-@auth.route("/passrecovery", methods=["GET", "POST"])
-def passrecovery():
-    email = "no"
+@auth.route("/reset", methods=["GET", "POST"])
+def password_reset_request():
+    if not current_user.is_anonymous:
+        return redirect(url_for("main.index"))
     form = PassrecoveryForm()
     if form.validate_on_submit():
-        email = form.email.data
-    return render_template("auth/passrecovery.html", form=form, email=email)
+        user = User.query.filter_by(email=form.email.data.lower()).first()
+        if user:
+            token = user.generate_reset_token()
+            send_email(form.email.data, "Reset password", "mail/reset", token=token)
+            flash("Check your email to change password")
+            return redirect(url_for("auth.login"))
+        else:
+            flash("User with this email doesn't exist")
+            return redirect(url_for("auth.password_reset_request"))
+    return render_template("auth/resetrequest.html", form=form)

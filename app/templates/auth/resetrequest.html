@@ -3,7 +3,7 @@
 {% block content %}
 <h1 style="text-align: center;">Input your email address</h1>
 <div class="container-md" style="width: 50%;">
-    <form action="/passrecovery" method="post">
+    <form action="/reset" method="post">
         {{ form.hidden_tag() }}
         <div class="form-floating mb-3">
             {{ form.email(class="form-control", autocomplete="off", placeholder="Email") }}

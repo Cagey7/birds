@@ -15,8 +15,9 @@
             <div style="color: red;">{% if form.password.errors %}{{ form.password.errors[0] }}{% endif %}</div>
             <label for="floatingPassword">Password</label>
         </div>
+        <a href="/reset">Forgot password?</a>
         <div class="container-sm">
-            <button type="submit" class="btn btn-secondary" style="margin: 20px auto 0px auto; display: block; width: 150px; height: 50px;">Submin</button>
+            <button type="submit" class="btn btn-secondary" style="margin: 20px auto 0px auto; display: block; width: 150px; height: 50px;">Submit</button>
         </div>
         {% for message in get_flashed_messages() %}
             <div style="color: red;">{{ message }}</div>

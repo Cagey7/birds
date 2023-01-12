@@ -3,7 +3,7 @@
 {% block content %}
 <h1 style="text-align: center;">Reset password</h1>
 <div class="container-md" style="width: 50%;">
-    <form action="/reset" method="post">
+    <form action="/reset/{{ token }}" method="post">
         {{ form.hidden_tag() }}
         <div class="form-floating mb-3">
             {{ form.password(class="form-control", placeholder="Password") }}
