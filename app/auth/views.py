@@ -35,3 +35,24 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for("main.index"))
+
+
+@auth.route("/reset", methods=["GET", "POST"])
+def reser():
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        email = "admin@gmail.com"
+        user = User.query.filter_by(email=email).first()
+        token = user.generate_reset_token()
+        User.reset_password(token, form.password.data)
+        
+    return render_template("auth/reset.html", form=form)
+
+
+@auth.route("/passrecovery", methods=["GET", "POST"])
+def passrecovery():
+    email = "no"
+    form = PassrecoveryForm()
+    if form.validate_on_submit():
+        email = form.email.data
+    return render_template("auth/passrecovery.html", form=form, email=email)

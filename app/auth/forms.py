@@ -32,3 +32,16 @@ class RegistrationForm(FlaskForm):
         """Checks if username is already taken"""
         if User.query.filter_by(username=field.data).first():
             raise ValidationError("Username already in used.")
+
+
+class ResetPasswordForm(FlaskForm):
+    """Flask wth reset password class"""
+    password = PasswordField("Password", validators=[DataRequired(), EqualTo("confirm_password", message="Passwords must match.")])
+    confirm_password = PasswordField("Confirm password", validators=[DataRequired()])
+    submit = SubmitField("Reset password")
+
+
+class PassrecoveryForm(FlaskForm):
+    """Flask wth reset password class"""
+    email = StringField("Email", validators=[DataRequired(), Length(1, 64), Email("Wrong email format")])
+    submit = SubmitField("Reset password")
