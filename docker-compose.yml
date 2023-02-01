@@ -1,0 +1,10 @@
+version: '3'
+services:
+    birds:
+      build: .
+      ports:
+        - 5000:5000
+        - 5001:5001
+      environment:
+        # changes for development configuration, production by default
+        ENV: DEV 
